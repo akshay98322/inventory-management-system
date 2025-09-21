@@ -11,8 +11,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     UV_PYTHON_DOWNLOADS=never \
     UV_PROJECT_ENVIRONMENT=/app/.venv
 
-# install uv
-COPY --from=ghcr.io/astral-sh/uv:0.8.14 /uv /uvx /bin/
+# install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends netcat-traditional
+
+# install uv inside Docker
+COPY --from=ghcr.io/astral-sh/uv:0.6.17 /uv /uvx /bin/
 
 # Since there's no point in shipping lock files, we move them
 # into a directory that is NOT copied into the runtime image.
@@ -27,5 +30,13 @@ RUN --mount=type=cache,target=/root/.cache \
     --frozen \
     --no-install-project
 
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i "s/\r$//g" /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # copy project
 COPY . .
+
+# run entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]

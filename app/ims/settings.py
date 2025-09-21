@@ -76,9 +76,13 @@ WSGI_APPLICATION = 'ims.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": env.str("SQL_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME": env.str("SQL_DATABASE", default=BASE_DIR / "db.sqlite3"),
+        "USER": env.str("SQL_USER", default="user"),
+        "PASSWORD": env.str("SQL_PASSWORD", default="password"),
+        "HOST": env.str("SQL_HOST", default="localhost"),
+        "PORT": env.str("SQL_PORT", default="5432"),
     }
 }
 
