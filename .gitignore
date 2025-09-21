@@ -378,5 +378,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm
 app/db.sqlite3
-
 .env.dev
