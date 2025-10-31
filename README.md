@@ -44,8 +44,8 @@ Inventory-Management-System/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd Inventory-Management-System
+git clone https://github.com/akshay98322/inventory-management-system.git
+cd inventory-management-system
 ```
 
 ### 2. Start All Services
